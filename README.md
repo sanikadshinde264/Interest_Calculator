@@ -62,7 +62,7 @@ interest-calculator/
 ### Requirements
 - **Java 17+**
 - **Maven 3.8+**
-- **MySQL 8+** (or skip this and use the H2 in-memory fallback — see step 2)
+- **MySQL 8+** 
 
 ### 1. Get the project
 ```bash
