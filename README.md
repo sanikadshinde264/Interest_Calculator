@@ -1,9 +1,5 @@
 # 💰 Interest Calculator
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> 279cbedf77ec1e7147c6df3fbf41fd244e4494b3
-A full-stack simple interest calculator with day-wise and month-wise calculations, saved history, and a home-screen installable app (PWA) — built with Java, Spring Boot, MySQL, HTML, CSS, and vanilla JavaScript.
+A web app for quickly calculating simple interest — either day-wise (based on an exact date range) or month-wise (based on number of months). Every calculation is saved to a history you can revisit or delete, and the app can be installed on your phone's home screen like a native app.
 
 ## Features
 
@@ -25,7 +21,7 @@ A full-stack simple interest calculator with day-wise and month-wise calculation
 ## Tech stack
 - **Frontend:** HTML, CSS, vanilla JavaScript
 - **Backend:** Java 17, Spring Boot 3
-- **Database:** MySQL (H2 fallback available for local testing without installing MySQL)
+- **Database:** MySQL 
 - **Build tool:** Maven
 
 ## Folder structure
@@ -75,7 +71,7 @@ cd Interest_Calculator
 ```
 
 ### 2. Set up the database
-Create the database (or let `createDatabaseIfNotExist=true` do it for you):
+Create the database:
 ```sql
 CREATE DATABASE interest_calc;
 ```
@@ -85,8 +81,6 @@ spring.datasource.url=jdbc:mysql://localhost:3306/interest_calc?createDatabaseIf
 spring.datasource.username=root
 spring.datasource.password=your_mysql_password
 ```
-
-**No MySQL installed?** Comment out the MySQL block in `application.properties` and uncomment the H2 block instead — it runs entirely in memory, no install required (history won't persist between restarts).
 
 ### 3. Run it
 
@@ -118,109 +112,5 @@ http://localhost:8080
 ```
 The calculator UI loads directly — no separate frontend setup needed.
 
-### 5. Install it on your phone (optional)
-Once it's running and reachable from your phone (same Wi-Fi, or deployed publicly):
-- **Android (Chrome):** open the site → tap **⋮** → **Add to Home screen**
-- **iPhone (Safari):** open the site → tap **Share** → **Add to Home Screen**
-
-## API Endpoints
-
-| Method | Endpoint | Body | Purpose |
-|---|---|---|---|
-| POST | `/api/interest/daywise` | `{ "amount": 10000, "interestRate": 8.5, "startDate": "2026-01-01", "endDate": "2026-04-01" }` | Calculate + save day-wise interest |
-| GET | `/api/interest/daywise` | — | Get day-wise history |
-| DELETE | `/api/interest/daywise/{id}` | — | Delete a day-wise record |
-| POST | `/api/interest/monthwise` | `{ "amount": 10000, "interestRate": 8.5, "months": 6 }` | Calculate + save month-wise interest |
-| GET | `/api/interest/monthwise` | — | Get month-wise history |
-| DELETE | `/api/interest/monthwise/{id}` | — | Delete a month-wise record |
-
-### Example request
-```bash
-curl -X POST http://localhost:8080/api/interest/daywise \
-  -H "Content-Type: application/json" \
-  -d '{"amount":10000,"interestRate":8.5,"startDate":"2026-01-01","endDate":"2026-04-01"}'
-```
-
-### Example response
-```json
-{
-  "id": 1,
-  "amount": 10000,
-  "interestRate": 8.5,
-  "startDate": "2026-01-01",
-  "endDate": "2026-04-01",
-  "actualDays": 90,
-  "interestAmount": 209.59,
-  "totalAmount": 10209.59,
-  "createdAt": "2026-07-10T14:22:01.123"
-}
-```
-
-## Validation rules enforced
-- `amount` — required, must be > 0
-- `interestRate` — required, must be > 0, at most 2 decimal places
-- `endDate` — must be strictly after `startDate` (day-wise only)
-- `months` — required, must be a positive whole number (month-wise only)
-
-Validation failures return `400 Bad Request` with a `fieldErrors` map naming each invalid field. See `exception/GlobalExceptionHandler.java`.
-
-## Deploying (e.g. Railway)
-`application.properties` reads its config from environment variables, so the same jar works locally and in production without editing the file:
-
-| Variable | Purpose | Example |
-|---|---|---|
-| `PORT` | Port the app listens on | `8080` |
-| `DB_URL` | Full JDBC URL | `jdbc:mysql://<host>:<port>/<database>` |
-| `DB_USERNAME` | Database username | — |
-| `DB_PASSWORD` | Database password | — |
-
 ## License
 This project is for educational purposes.
-<<<<<<< HEAD
-=======
-=======
-
-A simple interest calculator (day-wise & month-wise) with saved history — built with Java, Spring Boot, MySQL, HTML, CSS, and JavaScript. Installable as a mobile app.
-
-## Features
-- Day-wise interest calculation (auto-calculates days between two dates)
-- Month-wise interest calculation
-- Results breakdown: principal, rate, period, interest, total payable
-- Saved calculation history — click a row to view it again
-- Delete history entries
-- Installable on phone as a home-screen app (PWA)
-
-## Tech Stack
-- **Frontend:** HTML, CSS, JavaScript
-- **Backend:** Java, Spring Boot
-- **Database:** MySQL
-
-## Setup
-
-1. Clone the repo:
-   ```bash
-   git clone https://github.com/sanikadshinde264/Interest_Calculator.git
-   cd Interest_Calculator
-   ```
-
-2. Create the database:
-   ```sql
-   CREATE DATABASE interest_calc;
-   ```
-
-3. Set your MySQL username/password in `src/main/resources/application.properties`.
-
-4. Run the app:
-   ```bash
-   mvn spring-boot:run
-   ```
-
-5. Open in browser:
-   ```
-   http://localhost:8080
-   ```
-
-## License
-For educational purposes.
->>>>>>> 9b16c822bcf010c0222e5048cb15526ee935fe17
->>>>>>> 279cbedf77ec1e7147c6df3fbf41fd244e4494b3
