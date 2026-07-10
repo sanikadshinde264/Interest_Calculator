@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Interest Calculator</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,500;8..60,600;8..60,700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#16233F">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Interest Calc">
+</head>
+<body>
+
+<div class="app">
+
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand-mark">%</span>
+      <div>
+        <h1>Interest Calculator</h1>
+        <p>Simple interest, computed day-wise or month-wise</p>
+      </div>
+    </div>
+  </header>
+
+  <main class="layout">
+
+    <!-- Left: input panel -->
+    <section class="panel calc-panel">
+
+      <div class="tabs" role="tablist">
+        <button class="tab active" data-tab="day" role="tab" aria-selected="true">Day-wise</button>
+        <button class="tab" data-tab="month" role="tab" aria-selected="false">Month-wise</button>
+        <button class="tab" data-tab="rd" role="tab" aria-selected="false">RD Projection</button>
+      </div>
+
+      <form id="dayForm" class="calc-form active" novalidate>
+        <div class="form-row two-col">
+          <div class="field" id="d-amount-field">
+            <label for="d-amount">Principal amount</label>
+            <div class="input-wrap prefix">
+              <span class="prefix-sym">₹</span>
+              <input type="number" id="d-amount" step="0.01" placeholder="0.00" inputmode="decimal">
+            </div>
+            <span class="err-msg" id="d-amount-err">Enter an amount greater than 0</span>
+          </div>
+
+          <div class="field" id="d-rate-field">
+            <label for="d-rate">Interest rate</label>
+            <div class="input-wrap suffix">
+              <input type="number" id="d-rate" step="0.01" placeholder="0.00" inputmode="decimal">
+              <span class="suffix-sym">% p.a.</span>
+            </div>
+            <span class="err-msg" id="d-rate-err">Enter a rate greater than 0 (max 2 decimals)</span>
+          </div>
+        </div>
+
+        <div class="form-row two-col">
+          <div class="field" id="d-start-field">
+            <label for="d-start">Start date</label>
+            <div class="input-wrap"><input type="date" id="d-start"></div>
+            <span class="err-msg" id="d-start-err">Select a start date</span>
+          </div>
+
+          <div class="field" id="d-end-field">
+            <label for="d-end">End date</label>
+            <div class="input-wrap"><input type="date" id="d-end"></div>
+            <span class="err-msg" id="d-end-err">End date must be after start date</span>
+          </div>
+        </div>
+
+        <div class="computed-note">
+          <span>Actual days in period</span>
+          <input type="text" id="d-days" readonly placeholder="—">
+        </div>
+      </form>
+
+      <form id="monthForm" class="calc-form" novalidate>
+        <div class="form-row two-col">
+          <div class="field" id="m-amount-field">
+            <label for="m-amount">Principal amount</label>
+            <div class="input-wrap prefix">
+              <span class="prefix-sym">₹</span>
+              <input type="number" id="m-amount" step="0.01" placeholder="0.00" inputmode="decimal">
+            </div>
+            <span class="err-msg" id="m-amount-err">Enter an amount greater than 0</span>
+          </div>
+
+          <div class="field" id="m-rate-field">
+            <label for="m-rate">Interest rate</label>
+            <div class="input-wrap suffix">
+              <input type="number" id="m-rate" step="0.01" placeholder="0.00" inputmode="decimal">
+              <span class="suffix-sym">% p.a.</span>
+            </div>
+            <span class="err-msg" id="m-rate-err">Enter a rate greater than 0 (max 2 decimals)</span>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="field" id="m-months-field">
+            <label for="m-months">Number of months</label>
+            <div class="input-wrap"><input type="number" id="m-months" step="1" placeholder="0" inputmode="numeric"></div>
+            <span class="err-msg" id="m-months-err">Enter a whole number of months greater than 0</span>
+          </div>
+        </div>
+      </form>
+
+      <form id="rdForm" class="calc-form" novalidate>
+        <div class="form-row two-col">
+          <div class="field" id="rd-deposit-field">
+            <label for="rd-deposit">Monthly deposit</label>
+            <div class="input-wrap prefix">
+              <span class="prefix-sym">₹</span>
+              <input type="number" id="rd-deposit" step="0.01" placeholder="0.00" inputmode="decimal">
+            </div>
+            <span class="err-msg" id="rd-deposit-err">Enter an amount greater than 0</span>
+          </div>
+
+          <div class="field" id="rd-rate-field">
+            <label for="rd-rate">Interest rate</label>
+            <div class="input-wrap suffix">
+              <input type="number" id="rd-rate" step="0.01" placeholder="0.00" inputmode="decimal">
+              <span class="suffix-sym">% p.a.</span>
+            </div>
+            <span class="err-msg" id="rd-rate-err">Enter a rate greater than 0 (max 2 decimals)</span>
+          </div>
+        </div>
+
+        <div class="form-row two-col">
+          <div class="field" id="rd-months-field">
+            <label for="rd-months">Number of months</label>
+            <div class="input-wrap"><input type="number" id="rd-months" step="1" placeholder="0" inputmode="numeric"></div>
+            <span class="err-msg" id="rd-months-err">Enter a whole number of months greater than 0</span>
+          </div>
+
+          <div class="field" id="rd-start-field">
+            <label for="rd-start">Start date</label>
+            <div class="input-wrap"><input type="date" id="rd-start"></div>
+            <span class="err-msg" id="rd-start-err">Select a start date</span>
+          </div>
+        </div>
+
+        <div class="computed-note">
+          <span>Maturity date (auto)</span>
+          <input type="text" id="rd-maturity" readonly placeholder="—">
+        </div>
+      </form>
+
+      <button type="button" class="calc-btn" id="calcBtn">Calculate interest</button>
+      <div class="api-status" id="apiStatus"></div>
+
+      <div class="rd-table-wrap" id="rdTableWrap">
+        <table class="rd-table">
+          <thead>
+            <tr><th>Month</th><th>Deposit</th><th>Running balance</th><th>Interest</th></tr>
+          </thead>
+          <tbody id="rdTableBody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Right: results + history -->
+    <section class="panel side-panel">
+
+      <div class="result-card">
+        <div class="result-empty" id="resultEmpty">
+          <p>Fill in the form and calculate to see a breakdown here.</p>
+        </div>
+
+        <div class="result-stub" id="resultStub">
+          <h2>Calculation summary</h2>
+          <div class="stub-row"><span>Principal</span><span id="r-principal">—</span></div>
+          <div class="stub-row"><span>Rate</span><span id="r-rate">—</span></div>
+          <div class="stub-row"><span id="r-period-label">Period</span><span id="r-period">—</span></div>
+          <div class="stub-row"><span>Interest amount</span><span id="r-interest">—</span></div>
+          <div class="stub-row total"><span>Total payable</span><span id="r-total">—</span></div>
+        </div>
+      </div>
+
+      <div class="history">
+        <div class="history-head">
+          <h2>History</h2>
+          <div class="history-actions">
+            <button type="button" class="refresh-btn" id="refreshBtn" title="Reload from the server">Refresh</button>
+            <button type="button" class="clear-all-btn" id="clearAllBtn" disabled>Clear all</button>
+          </div>
+        </div>
+        <div id="historyList">
+          <div class="hist-empty" id="historyEmpty">No calculations yet — they'll be listed here.</div>
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+</div>
+
+<script src="js/app.js"></script>
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', async () => {
+      try {
+        const reg = await navigator.serviceWorker.register('/service-worker.js');
+        if (reg && reg.update) await reg.update();
+      } catch (err) {
+        // Ignore registration failures in browsers without SW support.
+      }
+    });
+  }
+</script>
+</body>
+</html>
