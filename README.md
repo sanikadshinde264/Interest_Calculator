@@ -89,23 +89,6 @@ spring.datasource.password=your_mysql_password
 mvn spring-boot:run
 ```
 
-**macOS / Linux:**
-```bash
-mvn spring-boot:run
-```
-
-Wait for this line in the console output:
-```
-Tomcat started on port(s): 8080
-Started InterestCalculatorApplication in X seconds
-```
-
-**Or build a standalone jar and run that instead:**
-```bash
-mvn clean package
-java -jar target/interest-calculator-1.0.0.jar
-```
-
 ### 4. Open the app
 ```
 http://localhost:8080
