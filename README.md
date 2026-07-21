@@ -1,6 +1,5 @@
 # 💰 Interest Calculator
 
-## 📝 One-Line Summary
 A web app for calculating simple interest (day-wise or month-wise) and recurring deposit (RD) maturity projections — with saved calculation history and installable as a PWA.
 
 ---
